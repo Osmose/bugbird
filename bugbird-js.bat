@@ -1,0 +1,1 @@
+xulrunner application.ini -purgecaches -jsconsole

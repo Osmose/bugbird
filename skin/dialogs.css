@@ -1,0 +1,17 @@
+dialog description.title {
+	font-size: 24px;
+	margin: 0px 0px 10px 10px;
+}
+
+dialog .field_container {
+	margin-bottom: 10px;
+}
+
+dialog .field label {
+	text-align: right;
+	width: 70px;
+}
+
+dialog .field textbox {
+	width: 200px;
+}

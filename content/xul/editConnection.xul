@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://bugbird/skin/dialogs.css" type="text/css"?>
+
+<dialog id="edit_connection"
+		buttons="accept,cancel"
+		title="Edit Connection"
+		ondialogaccept="return onOK();"
+		xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="chrome://bugbird/content/scripts/editConnection.js"></script>
+  <description class="title">Edit Connection</description>
+  <vbox class="field_container">
+    <hbox class="field">
+      <label control="url" value="Bugzilla URL" />
+      <textbox id="url" />
+    </hbox>
+	<hbox class="field">
+      <label control="username" value="Username" />
+      <textbox id="username" />
+    </hbox>
+	<hbox class="field">
+      <label control="password" value="Password" />
+      <textbox id="password" type="password" />
+    </hbox>
+  </vbox>
+</dialog>

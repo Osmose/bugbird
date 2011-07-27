@@ -1,0 +1,38 @@
+#main_container {
+	-moz-box-flex: 1;
+}
+
+.buglist {
+	-moz-box-flex: 1;
+}
+
+.bugview_container {
+	-moz-box-flex: 2;
+}
+
+.bugview {
+	-moz-box-flex: 1;
+	-moz-box-orient: horizontal;
+	margin: 5px;
+}
+
+.bugview .infobox {
+	-mox-box-flex: 2;
+	border: 1px solid #000000;
+	margin-right: 20px;
+}
+
+.bugview .infobox .title {
+	font-size: 36px;
+	font-weight: bold;
+}
+
+.bugview .infobox .details .name {
+	font-weight: bold;
+	width: 70px;
+}
+
+.bugview .commentbox {
+	-moz-box-flex: 8;
+	border: 1px solid #000000;
+}
