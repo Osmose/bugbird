@@ -1,0 +1,11 @@
+#main_container {
+	-moz-box-flex: 1;
+}
+
+.buglist {
+	-moz-box-flex: 1;
+}
+
+.bugview_container {
+	-moz-box-flex: 2;
+}

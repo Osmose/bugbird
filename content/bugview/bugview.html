@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="chrome://bugbird/skin/reset.css" />
+    <link rel="stylesheet" href="chrome://bugbird/skin/960.css" />
+    <link rel="stylesheet" href="chrome://bugbird/skin/bugview.css" />
+
+    <script src="chrome://bugbird/content/scripts/global.js"></script>
+    <script src="chrome://bugbird/content/scripts/bugview.js"></script>
+  </head>
+  <body>
+    <div class="container_12 main_container">
+      <aside class="grid_3">
+        <ul class="info">
+          <li class="title">Details</li>
+          <ul class="details">
+            <li>
+              <span id="bug_status" />
+            </li>
+            <li>
+              <span class="name">Assigned To:</span>
+              <span class="value bug_assigned_to" />
+            </li>
+            <li>
+              <span class="name">Product:</span>
+              <span class="value bug_product" />
+            </li>
+            <li>
+              <span class="name">Component:</span>
+              <span class="value bug_component" />
+            </li>
+          </ul>
+        </ul>
+      </aside>
+      <section class="grid_9">
+        <article class="wide">
+          <h1 class="bug_title"></h1>
+          <ul class="comments"></ul>
+        </article>
+      </section>
+    </div>
+  </body>
+</html>

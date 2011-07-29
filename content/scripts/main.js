@@ -1,8 +1,6 @@
 const Cu = Components.utils;
 Cu.import('resource://modules/Bugzilla.jsm');
 Cu.import('resource://modules/Util.jsm');
-Cu.import('resource://modules/xulquery.jsm');
-var $ = XULQuery(window);
 var bugs = {};
 
 $(function() {
@@ -38,12 +36,10 @@ $(function() {
 			'chrome, dialog, modal',
 			params
 		).focus();
-		$.fn.alert(params.out);
     });
 
-    var bugview = $("#main_bugview");
+    var bugview = document.getElementById("main_bugview").contentWindow;
     function showBug(bug) {
-        bugview.find(".title").text(bug.summary);
-        bugview.find(".bug_owner").text(bug.creator);
+        bugview.postMessage(JSON.stringify(bug), "*");
     }
 });

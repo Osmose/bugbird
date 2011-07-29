@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://bugbird/skin/bugview.css" type="text/css"?>
+<?xml-stylesheet href="chrome://bugbird/skin/main.css" type="text/css"?>
 <window
 	id="main"
 	title="Bugbird"
-	width="600"
-	height="600"
+	width="1024"
+	height="768"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	xmlns:html="http://www.w3.org/1999/xhtml">
-  <script src="chrome://bugbird/content/scripts/main.js" />
+  <script src="chrome://bugbird/content/scripts/global.js"></script>
+  <script src="chrome://bugbird/content/scripts/main.js"></script>
 
   <menubar>
     <menu id="file-menu" label="File">
@@ -31,24 +32,7 @@
 
 	<splitter />
 
-	<box class="bugview_container" id="main_bugview">
-	  <box class="bugview">
-		<box class="infobox">
-		  <html:h1 class="title"></html:h1>
-		  <html:ul class="details">
-			<html:li>
-			  <description class="name">Owner:</description>
-			  <description class="value bug_owner" />
-			</html:li>
-		  </html:ul>
-		</box>
-		<box class="commentbox">
-		  <box class="comment">
-			asdf
-		  </box>
-		</box>
-	  </box>
-	</box>
+	<iframe src="chrome://bugbird/content/bugview/bugview.html" class="bugview_container" id="main_bugview"></iframe>
   </vbox>
 
 </window>

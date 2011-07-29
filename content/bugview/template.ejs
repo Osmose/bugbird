@@ -1,0 +1,32 @@
+<div class="container_12 main_container">
+  <aside class="grid_3">
+    <ul class="info">
+      <li class="title">Details</li>
+      <ul class="details">
+        <li>
+          <span id="bug_status" class="<%= bug.status.toLowerCase() %>">
+            <%= bug.status %>
+          </span>
+        </li>
+        <li>
+          <span class="name">Assigned To:</span>
+          <span class="value"><%= bug.assigned_to %></span>
+        </li>
+        <li>
+          <span class="name">Product:</span>
+          <span class="value"><%= bug.product %></span>
+        </li>
+        <li>
+          <span class="name">Component:</span>
+          <span class="value"><%= bug.component %></span>
+        </li>
+      </ul>
+    </ul>
+  </aside>
+  <section class="grid_9">
+    <article class="wide">
+      <h1><%= bug.summary %></h1>
+      <ul class="comments"></ul>
+    </article>
+  </section>
+</div>
