@@ -34,7 +34,6 @@ Request.prototype = {
         }
         s += '</methodCall>';
 
-        Util.jsdump(s);
         var req = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
                 .createInstance(Components.interfaces.nsIXMLHttpRequest);
         req.open('POST', uri, false);
@@ -116,7 +115,6 @@ function Response(xml) {
     } else {
         this.fault = false;
         this.parseResponse(methodResponse);
-        Util.jsdump(this.value);
     }
 }
 XMLRPC.Response = Response;
@@ -181,7 +179,7 @@ Response.prototype = {
         var arr = [],
             data = node.querySelector('data');
         for (var k = 0; k < data.children.length; k++) {
-            arr.push(this.unmarshal(data.children[k]));
+            arr.push(this.unmarshal(data.children[k].firstElementChild));
         }
 
         return arr;
