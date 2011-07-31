@@ -16,26 +16,29 @@ $(function() {
 
     var mybugs = Bugzilla.bug.search({creator: 'mkelly@mozilla.com'});
     mybugs.forEach(function (bug) {
+        //var commentResults = Bugzilla.bug.comments({ids: [bug.id]});
+        //jsdump(commentResults.toSource());
+        //bug.comments = commentResults['bugs'][bug.id];
         bugs[bug.id] = bug;
     });
     buglist.view = new Util.BugTreeView(mybugs);
 
-	// Edit connection dialog
-	$('#file-connection-edit').bind('command', function(e) {
-		var params = {
-			in: {
-				url: "https://bugzilla.mozilla.com",
-				username: 'mkelly@mozilla.com',
-				password: 'asdf'
-			},
-			out: null
-		};
-		window.openDialog(
-			'chrome://bugbird/content/xul/editConnection.xul',
-			'',
-			'chrome, dialog, modal',
-			params
-		).focus();
+    // Edit connection dialog
+    $('#file-connection-edit').bind('command', function(e) {
+        var params = {
+            in: {
+                url: "https://bugzilla.mozilla.com",
+                username: 'mkelly@mozilla.com',
+                password: 'asdf'
+            },
+            out: null
+        };
+        window.openDialog(
+            'chrome://bugbird/content/xul/editConnection.xul',
+            '',
+            'chrome, dialog, modal',
+            params
+        ).focus();
     });
 
     var bugview = document.getElementById("main_bugview").contentWindow;

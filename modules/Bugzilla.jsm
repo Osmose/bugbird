@@ -1,7 +1,7 @@
-var EXPORTED_SYMBOLS = ['Bugzilla']
+var EXPORTED_SYMBOLS = ['Bugzilla'];
 
 const Cu = Components.utils;
-Cu.import('resource://modules/Mimic.jsm');
+Cu.import('resource://modules/xmlrpc.jsm');
 Cu.import('resource://modules/Util.jsm');
 
 let Bugzilla = {
@@ -15,8 +15,8 @@ let Bugzilla = {
         if (url.substr(-1) !== '/') url += '/';
         let connection = {
             url: url + 'xmlrpc.cgi',
-            options: Util.merge(this.defaultOptions, options),
-        }
+            options: Util.merge(this.defaultOptions, options)
+        };
 
         this.connections[name] = connection;
     },
@@ -30,11 +30,7 @@ let Bugzilla = {
             throw new Error("No connection specified.");
         }
 
-        let request = new XmlRpcRequest(this.currentConn.url, method);
-        request.addParam(params);
-        let response = request.send();
-
-        return response.parseXML();
+        return XMLRPC.send(this.currentConn.url, method, [params]);;
     },
 
     bug: {
