@@ -2,6 +2,7 @@ let EXPORTED_SYMBOLS = ['XMLRPC'];
 
 const Cu = Components.utils;
 Cu.import('resource://modules/Util.jsm');
+Cu.import('resource://gre/modules/ISO8601DateUtils.jsm');
 
 // TODO: Handle base64
 
@@ -80,7 +81,7 @@ Request.prototype = {
         return '<double>' + val + '</double>';
     },
     mDate: function(val) {
-        return '<dateTime.iso8601>' + ISODateString(val)
+        return '<dateTime.iso8601>' + ISO8601DateUtils.create(val)
             + '</dateTime.iso8601>';
     },
     mObject: function(val) {
@@ -162,7 +163,7 @@ Response.prototype = {
         return parseFloat(node.textContent);
     },
     umDate: function(node) {
-        return Date.parse(node.textContent);
+        return ISO8601DateUtils.parse(node.textContent);
     },
     umStruct: function(node) {
         var obj = {};
@@ -197,16 +198,4 @@ XMLRPC.send = function(uri, methodName, params) {
         return resp.value;
     }
 };
-
-function ISODateString(d) {
-    function pad(n){
-        return n < 10 ? '0'+n : n;
-    }
-    return d.getUTCFullYear()+'-'
-    + pad(d.getUTCMonth()+1)+'-'
-    + pad(d.getUTCDate())+'T'
-    + pad(d.getUTCHours())+':'
-    + pad(d.getUTCMinutes())+':'
-    + pad(d.getUTCSeconds())+'Z';
-}
 })();

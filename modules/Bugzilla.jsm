@@ -48,6 +48,25 @@ let Bugzilla = {
             }
 
             return Bugzilla.request('Bug.comments', params);
-        },
-    },
+        }
+    }
+};
+
+function User(attrs) {
+    this.attrs = attrs || {};
+    this.displayName = attrs.realName || attrs.name;
+
+    var email = attrs.email || attrs.name;
+    this.gravatar = 'http://www.gravatar.com/avatar/' + Util.md5(email)
+            + '?s=48';
+}
+Bugzilla.User = User;
+
+User.getFromEmail = function(email) {
+    var resp = Bugzilla.request('User.get', {names: [email]});
+    if (resp.users.length > 0) {
+        return new User(resp.users[0]);
+    }
+
+    return false;
 };

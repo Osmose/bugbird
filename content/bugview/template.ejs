@@ -26,7 +26,27 @@
   <section class="grid_9">
     <article class="wide">
       <h1><%= bug.summary %></h1>
-      <ul class="comments"></ul>
+      <ul class="comments">
+        <% for (var k = 0; k < bug.comments.length; k++) { %>
+        <% var comment = bug.comments[k] %>
+        <li>
+          <span class="avatar">
+            <img src="<%= comment.creator.gravatar %>">
+          </span>
+          <div class="bubble">
+            <div class="comment">
+              <div class="cmeta">
+                <p class="author"><%= comment.creator.displayName %></p>
+                <p class="date"><%= comment.dateString %></p>
+              </div>
+              <div class="body">
+                <%= comment.text %>
+              </div>
+            </div>
+          </div>
+        </li>
+        <% } %>
+      </ul>
     </article>
   </section>
 </div>

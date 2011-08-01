@@ -1,3 +1,6 @@
+const Cu = Components.utils;
+Cu.import('resource://modules/Util.jsm');
+
 // Import other global scripts
 var jsLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
         .getService(Components.interfaces.mozIJSSubScriptLoader);

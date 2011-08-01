@@ -22,6 +22,66 @@ Util = {
             .getService(Components.interfaces.nsIConsoleService)
             .logStringMessage(data);
     },
+
+    md5: function(str) {
+        var converter =
+          Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
+            createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+        converter.charset = "UTF-8";
+
+        // result is an out parameter,
+        // result.value will contain the array length
+        var result = {};
+
+        // data is an array of bytes
+        var data = converter.convertToByteArray(str, result);
+
+        var ch = Components.classes["@mozilla.org/security/hash;1"]
+                .createInstance(Components.interfaces.nsICryptoHash);
+        ch.init(ch.MD5);
+        ch.update(data, data.length);
+        var hash = ch.finish(false);
+
+        // return the two-digit hexadecimal code for a byte
+        function toHexString(charCode) {
+            return ("0" + charCode.toString(16)).slice(-2);
+        }
+
+        // convert the binary hash data to a hex string.
+        return [toHexString(hash.charCodeAt(i)) for (i in hash)].join("");
+    },
+    xmlhttp: function() {
+        return Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
+            .createInstance(Components.interfaces.nsIXMLHttpRequest);
+    },
+    loadFromUrl: function(url) {
+        var req = this.xmlhttp();
+        req.open('GET', url, false);
+        req.send();
+        return req.responseText;
+    },
+    getGravatarProfile: function(email) {
+        var req = this.xmlhttp();
+        req.open('GET', 'http://www.gravatar.com/' + this.md5(email) + '.json',
+                 false);
+        Util.jsdump('http://www.gravatar.com/' + this.md5(email) + '.json');
+        req.send();
+        if (req.status == 200) {
+            var resp = JSON.parse(req.responseText);
+            var profile = resp.entry[0];
+
+            // Extra sugar to make life easier
+            profile.primaryEmail = profile.emails.filter(function(e) {
+                return e.primary;
+            });
+
+            return profile;
+        } else if (req.status == 404) {
+            // User not found, let's mock with bugzilla
+        } else {
+            throw new Error('Error connecting to server: HTTP ' + req.status);
+        }
+    }
 };
 
 Util.BugTreeView = function(bugs) {

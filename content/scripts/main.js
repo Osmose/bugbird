@@ -1,7 +1,7 @@
-const Cu = Components.utils;
 Cu.import('resource://modules/Bugzilla.jsm');
-Cu.import('resource://modules/Util.jsm');
-var bugs = {};
+Cu.import('resource://modules/relative_date.jsm');
+var bugs = {},
+    users = {};
 
 $(function() {
     // Grab bugs
@@ -16,10 +16,23 @@ $(function() {
 
     var mybugs = Bugzilla.bug.search({creator: 'mkelly@mozilla.com'});
     mybugs.forEach(function (bug) {
-        //var commentResults = Bugzilla.bug.comments({ids: [bug.id]});
-        //jsdump(commentResults.toSource());
-        //bug.comments = commentResults['bugs'][bug.id];
+        var commentResults = Bugzilla.bug.comments({ids: [bug.id]});
+        bug.comments = commentResults['bugs'][bug.id]['comments'];
         bugs[bug.id] = bug;
+
+        bug.comments.forEach(function (comment) {
+            if (!(comment.creator in users)) {
+                users[comment.creator] = Bugzilla.User.getFromEmail(comment.creator);
+            }
+
+            comment.creator = users[comment.creator];
+
+            comment.text = '<p>' + comment.text
+                .replace(/(\r\n|\r|\n){2,}/, "</p><p>")
+                .replace(/(\r\n|\r|\n){1}/, "<br />")
+                + '</p>';
+            comment.dateString = relativeDate(comment.time);
+        });
     });
     buglist.view = new Util.BugTreeView(mybugs);
 
